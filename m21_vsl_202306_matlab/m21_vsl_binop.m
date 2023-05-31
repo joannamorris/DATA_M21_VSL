@@ -2,9 +2,9 @@
     clear;
     clc;
 
-  %% Load eeglab
+%% Load eeglab
     [ALLEEG, EEG, CURRENTSET, ALLCOM] = eeglab;
-  %% Set up variables holding key values 
+%% Set up variables holding key values 
     DIR = pwd; %Current folder (where the script should be located)
     Bin_Operators       = [DIR '/dprime_equations.txt']; %File that holds difference wave equations for bin operations;     
     erpfile_path        = [DIR '/m21_vsl_erpfiles_202306/'];
@@ -45,3 +45,4 @@
         erplab redraw;
     
     end  % end of looping through all subjects
+
