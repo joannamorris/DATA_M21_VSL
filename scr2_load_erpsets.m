@@ -9,6 +9,7 @@
     
     
 DIR            = pwd;                                    % Current folder (where the script should be located)
+erp_dir        = 'm21_vsl_erpfiles_dprime';
 subj_list      = importdata('subjlist.txt');             % list of subject ids
 num_subjects   = length(subj_list);                      % number of subjects
   
@@ -18,10 +19,18 @@ num_subjects   = length(subj_list);                      % number of subjects
 
 for subject = 1:num_subjects
     subjID = subj_list{subject};
-    Subject_DIR = [DIR filesep subjID];
-    filename = [subjID '.erp'];
-    ERP = pop_loaderp('filename', filename, 'filepath', Subject_DIR);
-	CURRENTERP = CURRENTERP + 1;
-    ALLERP(CURRENTERP) = ERP;    
-end
+    filename = [subjID '_dprime.erp'];
+
+    %% Check to make sure the dataset file exists
+    if (exist([DIR filesep erp_dir filesep filename], 'file')<=0);
+        fprintf('\n *** WARNING: %s does not exist *** \n', filename);
+        fprintf('\n *** Skip all processing for this subject *** \n\n');
+    else 
+
+        ERP = pop_loaderp('filename', filename, 'filepath', [DIR filesep erp_dir]);
+	    CURRENTERP = CURRENTERP + 1;
+        ALLERP(CURRENTERP) = ERP;  
+    end % end of the "if/else" statement that makes sure the file exists
+
+end % end of looping through all subjects
 erplab redraw;

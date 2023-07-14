@@ -4,7 +4,7 @@
 # The general syntax of awk is:  `awk 'script' filename`
 
 
-awk '/^		bin/ {print}' S104_el_2.txt > S104.txt
+awk '/^	bin/ {print}' S104_el_2.txt > S104.txt
 awk '/^	bin/ {print}' S105_el_2.txt > S105.txt
 awk '/^	bin/ {print}' S106_el_2.txt > S106.txt
 awk '/^	bin/ {print}' S107_el_2.txt > S107.txt
