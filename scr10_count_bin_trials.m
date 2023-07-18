@@ -43,6 +43,7 @@ end
 D = num2cell(B);       % convert the array of bin counts to a cell array
 E = horzcat(A, D);     % concatenate with the array of Subj IDs
 
+
 % convert the combined cell array D to a table 
 
 T = cell2table(E,'VariableNames',{'SubjID','bin1', 'bin2', 'bin3','bin4','bin5',...
