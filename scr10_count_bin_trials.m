@@ -53,5 +53,5 @@ T = cell2table(E,'VariableNames',{'SubjID','bin1', 'bin2', 'bin3','bin4','bin5',
                                   'bin22', 'bin23', 'bin24'});
 
 % write the combined table T to a .csv file using 'writetable'
- writetable(T,[DIR 'm21_bincounts.csv']);
+ writetable(T,[DIR filesep 'm21_bincounts.csv']);
 
