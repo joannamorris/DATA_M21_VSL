@@ -21,6 +21,7 @@ nsubj = length(A);
 % it is a best practice to preallocate space for the largest matrix 
 % you anticipate creating. Without preallocation, MATLAB has to allocate 
 % memory every time the size increases, slowing down operations.
+% Here we preallocate a matrix with 'nsubj' rows and 24 columns
 
 B = zeros(nsubj,24);
 
