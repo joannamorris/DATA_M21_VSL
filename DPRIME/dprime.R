@@ -19,15 +19,20 @@ m21_bincounts <- m21_bincounts |> mutate(hit_rate = hits/totalTrials, fa_rate = 
 
 
 # calculate zscores for hit rate and false alarm rate
-m21_bincounts <- m21_bincounts |> mutate(hit_rate_z = c(scale(hit_rate)),
-                                         fa_rate_z = c(scale(fa_rate)))
+
+# z-score function
+
+zscore <- function(x) {(x - mean(x))/sd(x)}
+
+m21_bincounts <- m21_bincounts |> mutate(hit_rate_z = c(zscore(hit_rate)),
+                                         fa_rate_z = c(zscore(fa_rate)))
 
 # calculate dprime
 m21_bincounts <- m21_bincounts |> mutate(d_prime_raw = hit_rate - fa_rate, 
                                          d_prime = hit_rate_z - fa_rate_z)
 
 # determine sensitivity category
-m21_bincounts <- m21_bincounts |> mutate(sensitivity = if_else(d_prime < -1, "Reversed", if_else(d_prime > 1, "Sensitive", "Insensitive")))
+m21_bincounts <- m21_bincounts |> mutate(sensitivity = if_else(d_prime > 0, "Sensitive", "Insensitive"))
 
 # write file to disk
 write_csv(m21_bincounts,"m21_bincounts_dprime.csv")
