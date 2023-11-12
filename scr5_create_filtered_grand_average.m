@@ -12,12 +12,12 @@ ALLERP = buildERPstruct([]);
     
     
 DIR            = pwd;                                    % Current folder (where the script should be located)
-subj_list      = importdata('SEN_SEM.txt');             % list of subject ids
+subj_list      = importdata('subjlist_insensitive.txt');             % list of subject ids
 nsubj          = length(subj_list);                      % number of subjects
 prompt         = {'Type in the name for your grand average file:'};  %  array specifying the 2 prompts in the dialog box.  Note that braces create a cell array while square brackets create a regualar array.
 dlgtitle       = 'Grand average filename';                         % title of dialog box
 dims           = [1 70];                          % dimensions of input fields
-definput       = {'M21_VSL_GA_SENSITIVE_SEMANTIC'};                      % sample answers as guide for how to enter data
+definput       = {'M21_VSL_GA_INSENSITIVE'};                      % sample answers as guide for how to enter data
 my_input       = inputdlg(prompt,dlgtitle,dims,definput);   % function that gets the input
 ga_name        = my_input{1};    
   

@@ -16,18 +16,17 @@
 
     DIR = pwd;
     erpfolder = 'erp_vsl_dprime';
-    subjlist = readtable([DIR filesep 'M21_subjectProfiles_hampshire.csv']);
-    interval   = [300 500];
+    interval   = [125 175];
     baseline    = [-150 50];
     bins         = 25:51;
     channels     = 1:27;
-    output_fname = [DIR filesep 'm21_vsl_mea_300500_150050.txt'];
+    output_fname = [DIR filesep 'm21_vsl_mea_125175_150050.txt'];
     format       = 'long';
     subject_list_file = 'm21_vsl_filelist_hamp.txt';
 
 
 ALLERP = pop_geterpvalues(subject_list_file, ...
-                          interval, bins, channels , ...
+                          interval,bins,channels , ...
                           'Baseline', baseline, ...
                           'Binlabel', 'on', ...
                           'FileFormat',format, ...

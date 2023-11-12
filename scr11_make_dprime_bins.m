@@ -1,4 +1,4 @@
-  %% Clear memory and the command window
+      %% Clear memory and the command window
     clear;
     clc;
     
@@ -14,7 +14,7 @@
     DIR = pwd;
     erpfolder = [DIR filesep 'vsl_test_erp_category'];
     erp_dprime_folder = [DIR filesep 'erp_vsl_dprime'];
-    subjlist = importdata("subjlist.txt");
+    subjlist = importdata("subjlist2.txt");
     nsubj = length(subjlist); % number of subjects
 
 
@@ -43,9 +43,9 @@
             % the home folder for the experiment
 
             
-            ERP         = pop_binoperator( ERP, [DIR filesep 'dprime_bin_equations.txt']);
+            ERP         = pop_binoperator( ERP, [DIR filesep 'm21_bin_equations_dprime_202311.txt']);
 
-            ERP.erpname = [subjlist{s} '_vsl_dprime'];  % name for erpset menu;  
+            ERP.erpname = [subjlist{s} '_vsl_dprime'];  % name for erpset menu;  eg
             pop_savemyerp(ERP, 'erpname', ERP.erpname, 'filename', [ERP.erpname '.erp'], 'filepath', erp_dprime_folder, 'warning', 'off');
 
        

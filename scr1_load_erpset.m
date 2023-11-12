@@ -8,7 +8,7 @@ clc;
 %% This defines the all variables including the Path to the parent folder, which contains the data folders for all subjects
    DIR = pwd;
    erpfolder  = [DIR filesep 'erp_vsl_dprime'];
-   subjlist = importdata("subjlist.txt");
+   subjlist = importdata("subjlist2.txt");
    nsubj = length(subjlist); % number of subjects
 
 
