@@ -13,7 +13,7 @@ clc;
 
 
 DIR = pwd;
-file_dir = [DIR filesep 'dprime_txt_files'];
+file_dir = [DIR filesep 'dprime_txt_files_2'];
 A = importdata([DIR filesep 'subjlist.txt']);
 nsubj = length(A);
 

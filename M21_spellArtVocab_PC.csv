@@ -1,0 +1,18 @@
+participant #,Date,Age,Sex/gender,Ethnicity,Race,Handedness,ART,Vocab,Spelling,TOWRE (percentile rank),TOWRE Descriptors,ART_z,Vocab_z,Spelling_z,profile
+201,12-Jun-23,NA,Female,I identify as Hispanic or Latino,American Indian or Alaska Native,100,26,37,68,58,average,-0.989755327654105,0.40024846121127794,0.896186535840305,Orthographic
+202,13-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,Asian,80.9,32,32,65,50,average,0.750848869254839,-0.29406009395114285,0.41507586923129897,Orthographic
+203,13-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,White,100,29,42,70,70,average,-0.11945322919963298,1.0945570163736986,1.216926980246309,Orthographic
+204,14-Jun-23,NA,Male,I do NOT identify as Hispanic or Latino,White,90.4,35,38,73,97,superior,1.621150967709311,0.5391101722437621,1.698037646855315,Orthographic
+205,14-Jun-23,NA,Male,I do NOT identify as Hispanic or Latino,White,100,28,33,62,75,average,-0.409553928684457,-0.1551983829186587,-0.06603479737770705,Orthographic
+206,15-Jun-23,NA,Female,I identify as Hispanic or Latino,White,90.9,30,42,64,50,average,0.170647470285191,1.0945570163736986,0.25470564702829696,Semantic
+207,20-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,White,100,29,21,67,35,average,-0.11945322919963298,-1.8215389153084687,0.735816313637303,Orthographic
+208,20-Jun-23,24 years old,Male,I do NOT identify as Hispanic or Latino,White,100,33,44,69,61,average,1.040949568739663,1.372280438438667,1.056556758043307,Semantic
+209,26-Jun-23,NA,Male,I do NOT identify as Hispanic or Latino,White,91.3,30,36,59,50,average,0.170647470285191,0.26138675017879376,-0.547145463986713,Semantic
+210,27-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,White,100,23,30,57,73,average,-1.860057426108577,-0.5717835160161112,-0.8678859083927171,Semantic
+211,27-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,White,90.9,34,32,62,65,average,1.331050268224487,-0.29406009395114285,-0.06603479737770705,Orthographic
+212,27-Jun-23,NA,Female,I do NOT identify as Hispanic or Latino,White,83.3,28,19,56,79,above average,-0.409553928684457,-2.0992623373734367,-1.0282561305957192,Orthographic
+213,5-Jul-23,NA,Female,I do NOT identify as Hispanic or Latino,White,83.3,22,26,50,23,below average,-2.150158125593401,-1.1272303601460478,-1.9904774638137313,Semantic
+214,5-Jul-23,NA,Male,I do NOT identify as Hispanic or Latino,White,72.7,30,43,57,73,average,0.170647470285191,1.233418727406183,-0.8678859083927171,Semantic
+215,6-Jul-23,NA,Male,I do NOT identify as Hispanic or Latino,White,100,31,37,55,42,average,0.460748169770015,0.40024846121127794,-1.188626352798721,Semantic
+216,6-Jul-23,NA,Female,I do NOT identify as Hispanic or Latino,White,100,31,34,60,61,average,0.460748169770015,-0.016336671886174547,-0.3867752417837111,Semantic
+217,11-Jul-23,NA,Male,I do NOT identify as Hispanic or Latino,White,100,29,34,67,70,average,-0.11945322919963298,-0.016336671886174547,0.735816313637303,Orthographic
