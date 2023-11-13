@@ -25,4 +25,6 @@ b48 = (b1 + b13 + b2 + b14)/4 label Old 1
 b49 = (b7 + b19 + b8 + b20)/4 label New 1             
 b50 = (b1 + b13 + b7 + b19)/4 label Correct Responses 1
 b51 = (b2 + b14 + b8 + b20)/4 label Incorrect Responses 1
+b52 = ((b1 + b13 + b2 + b14)/4) -  ((b7 + b19 + b8 + b20)/4) label Old Minus New First Shape
+b53 = ((b1 + b13 + b3 + b15 + b5 + b17 + b2 + b14 + b4 + b16 + b6 + b18)/12) - ((b7 + b19 + b9 + b21 + b11 + b23 + b8 + b20 + b10 + b22 + b12 + b24)/12) label Old Minus New All
 

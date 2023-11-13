@@ -1,0 +1,170 @@
+---
+title: "Psychonomics 2023: ALL SHAPES: OLD VS NEW"
+author: "Joanna Morris"
+date: "`r Sys.Date()`"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Let's import our data
+
+```{r}
+library(readr)
+subjectProfiles <- read_csv("M21_subjectProfiles_hampshire_2.csv")
+n400 <- read_csv("m21_vsl_300500_150050.csv")
+```
+
+Next lets join the subject reading profile data and erp data into a single dataframes
+
+```{r}
+library(dplyr)
+library(tidyr)
+n400_subj<-left_join(n400, subjectProfiles, by = "SubjID")
+```
+
+
+Now let's divide this data frame into four separate ones—for responses to 1st, 2nd, 3rd and all shapes
+```{r}
+library(tidyr)
+n400_subj <- separate_wider_delim(n400_subj,
+                                  binlabel, 
+                                  delim = "_", 
+                                  names = c("TrialType", "file"), 
+                                  too_few = "align_start")
+n400_first <- filter(n400_subj, file == 1)
+n400_second <- filter(n400_subj, file == 2)
+n400_third <- filter(n400_subj, file == 3)
+n400_all <- filter(n400_subj, is.na(n400_subj$file))
+n400_all$file <- NULL
+```
+
+
+Now for the `n400_all` dataframe which is what we will be analysing, we need to  extract just the bins and channels that we intend to analyse.  
+
+```{r}
+channels <-  c(3, 2, 25, 7, 20, 21, 12, 11, 16)
+n400_subset <- n400_all |> filter(chindex %in% channels) 
+n400_subset_a <- separate_wider_position(n400_subset,
+                                       cols = chlabel, 
+                                       widths = c(anteriority = 1, laterality= 1),
+                                       cols_remove = FALSE) # separate by dividing into two columns
+
+n400_subset_b <- mutate(n400_subset_a, 
+                        Laterality = case_when((laterality == "z"|laterality == "Z") ~ "Midline",
+                                             laterality == "3" ~ "Left", 
+                                             laterality == "4" ~ "Right"),
+                        Anteriority = case_when(anteriority == "F" ~ "Frontal",
+                                                anteriority == "C" ~ "Central",
+                                                anteriority == "P" ~ "Parietal"),
+                        .keep = "unused")
+
+n400_subset_oldnew <- n400_subset_b |> filter(TrialType == "New" | TrialType == "Old")
+```
+
+Now we can run our anova. First let's check to make sure we have no empty cells
+
+```{r}
+(responses_table <- table(n400_subset_oldnew$ReadingProfile, 
+                          n400_subset_oldnew$Anteriority,
+                          n400_subset_oldnew$Laterality))
+```
+
+Then we run the anova
+```{r}
+
+library(ez)
+ezANOVA(n400_subset_oldnew,
+        dv = value,
+        wid = SubjID,
+        within = .(TrialType,Anteriority,Laterality),
+        between = ReadingProfile,
+        type = 3)
+```
+
+We have a significant ReadingProfile x Trial Type by Laterality Interaction.  Let's examine the means for the conditions.
+
+```{r}
+library(knitr)
+library(plotrix)
+kable(means_table <- n400_subset_oldnew |> 
+  group_by(Laterality, ReadingProfile, TrialType ) |>
+  summarise(Mean = mean(value), 
+            SE = std.error(value), 
+            SD = sd(value), 
+            Max = max(value), 
+            Min = min(value)), digits = 2)
+
+```
+
+Now, let's run some post-hoc tests
+```{r}
+library(pander)
+pander(t.test(value ~ TrialType
+       , filter(n400_subset_oldnew, ReadingProfile == "SEMANTIC" & Laterality == "Left" )
+       , paired=TRUE))
+
+library(pander)
+pander(t.test(value ~ TrialType
+       , filter(n400_subset_oldnew, ReadingProfile == "SEMANTIC" & Laterality == "Right" )
+       , paired=TRUE))
+
+library(pander)
+pander(t.test(value ~ TrialType
+       , filter(n400_subset_oldnew, ReadingProfile == "ORTHOGRAPHIC" & Laterality == "Left" )
+       , paired=TRUE))
+
+library(pander)
+pander(t.test(value ~ TrialType
+       , filter(n400_subset_oldnew, ReadingProfile == "ORTHOGRAPHIC" & Laterality == "Right" )
+       , paired=TRUE))
+
+```
+
+Let's plot the means
+```{r fig.dim = c(8, 8)}
+library(ggplot2)
+library(ggsci)
+n400_right <- filter(n400_subset_oldnew, Laterality == "Right") |> 
+  group_by(ReadingProfile, TrialType) |>
+  summarise(mean = mean(value), se = std.error(value))|> 
+  mutate(lwr = mean - (1.96*se), upr = mean + (1.96*se))
+
+
+n400_left <- filter(n400_subset_oldnew, Laterality == "Left") |> 
+  group_by(ReadingProfile, TrialType) |>
+  summarise(mean = mean(value), se = std.error(value))|> 
+  mutate(lwr = mean - (1.96*se), upr = mean + (1.96*se))
+
+
+plot1<- ggplot(n400_left, aes(x = ReadingProfile, 
+                         y = mean,
+                         ymin = lwr,
+                         ymax = upr,
+                         fill = TrialType, 
+                         group = TrialType)) + 
+  geom_bar(position=position_dodge(), stat="identity", colour = "black") + 
+  geom_errorbar(width = .2, position = position_dodge(.9))  +
+  scale_fill_npg() + ylab("Voltage in microvolts") +
+  ggtitle("Reading Profile by Trial Type Interaction: Left") + theme_classic()
+
+plot2 <- ggplot(n400_right, aes(x = ReadingProfile, 
+                         y = mean,
+                         ymin = lwr,
+                         ymax = upr,
+                         fill = TrialType, 
+                         group = TrialType)) + 
+  geom_bar(position=position_dodge(), stat="identity", colour = "black") + 
+  geom_errorbar(width = .2, position = position_dodge(.9))  +
+  scale_fill_npg() + ylab("Voltage in microvolts") +
+  ggtitle("Reading Profile by Trial Type Interaction: Right") + theme_classic()
+ 
+
+library(gridExtra)
+grid.arrange(plot1, plot2, ncol=1)
+```
+
