@@ -4,7 +4,7 @@ author: "Joanna Morris"
 date: "`r Sys.Date()`"
 output: pdf_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 
@@ -71,7 +71,8 @@ n400_subset_oldnew <- n400_subset_b |> filter(TrialType == "New" | TrialType == 
 Now we can run our anova. First let's check to make sure we have no empty cells
 
 ```{r}
-(responses_table <- table(n400_subset_oldnew$ReadingProfile, 
+(responses_table <- table(n400_subset_oldnew$TrialType,
+                          n400_subset_oldnew$ReadingProfile, 
                           n400_subset_oldnew$Anteriority,
                           n400_subset_oldnew$Laterality))
 ```
