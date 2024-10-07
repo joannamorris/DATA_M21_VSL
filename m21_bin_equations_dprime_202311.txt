@@ -1,0 +1,39 @@
+b25 = (b1 + b13)/2 label Hits Shape 1                            
+b26 = (b2 + b14)/2 label Misses Shape 1                           
+b27 = (b7 + b19)/2 label Correct Rejections Shape 1               
+b28 = (b8 + b20)/2 label False Alarms Shape 1 
+
+b29 = (b3 + b15)/2 label Hits Shape 2                             
+b30 = (b4 + b16)/2 label Misses Shape 2                           
+b31 = (b9 + b21)/2 label Correct Rejections Shape 2               
+b32 = (b10 + b22)/2 label False Alarms Shape 2 
+
+b33 = (b5 + b17)/2 label Hits Shape 3                             
+b34 = (b6 + b18)/2 label Misses Shape 3                           
+b35 = (b11 + b23)/2 label Correct Rejections Shape 3              
+b36 = (b12 + b24)/2 label False Alarms Shape 3
+
+b37 = (b1 + b13 + b3 + b15 + b5 + b17)/6 label Hits               
+b38 = (b2 + b14 + b4 + b16 + b6 + b18)/6 label Misses             
+b39 = (b7 + b19 + b9 + b21 + b11 + b23)/6 label Correct Rejections
+b40 = (b8 + b20 + b10 + b22 + b12 + b24)/6 label False Alarms
+
+b41 = (b1 + b13 + b3 + b15 + b5 + b17 + b2 + b14 + b4 + b16 + b6 + b18)/12 label Old All Shapes
+b42 = (b7 + b19 + b9 + b21 + b11 + b23 + b8 + b20 + b10 + b22 + b12 + b24)/12 label New All Shapes
+
+b43 = (b1 + b13 + b3 + b15 + b5 + b17 + b7 + b19 + b9 + b21 + b11 + b23)/12 label Correct Responses
+b44 = (b2 + b14 + b4 + b16 + b6 + b18 + b8 + b20 + b10 + b22 + b12 + b24)/12 label Incorrect Responses
+
+b45 = (b37 - b40) label Hits Minus False Alarms
+b46 = (b37 - b38) label Hits Minus Misses
+b47 = (b37 - b39) label Hits Minus Correct Rejections
+
+b48 = (b1 + b13 + b2 + b14)/4 label Old 1              
+b49 = (b7 + b19 + b8 + b20)/4 label New 1             
+
+b50 = (b1 + b13 + b7 + b19)/4 label Correct Responses 1
+b51 = (b2 + b14 + b8 + b20)/4 label Incorrect Responses 1
+
+b52 = ((b1 + b13 + b2 + b14)/4) -  ((b7 + b19 + b8 + b20)/4) label Old Minus New First Shape
+b53 = ((b1 + b13 + b3 + b15 + b5 + b17 + b2 + b14 + b4 + b16 + b6 + b18)/12) - ((b7 + b19 + b9 + b21 + b11 + b23 + b8 + b20 + b10 + b22 + b12 + b24)/12) label Old Minus New All Shapes
+

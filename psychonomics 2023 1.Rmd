@@ -1,0 +1,79 @@
+---
+title: "Psychonomics 2023: Chi-Square Test"
+author: "Joanna Morris"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Let's import our data
+
+```{r}
+library(readr)
+subjectProfiles <- read_csv("M21_subjectProfiles_hampshire_2.csv")
+n400 <- read_csv("m21_vsl_300500_150050.csv")
+```
+
+Let's examine the relatioship between sensitivity and reading profile using a **mosaic plot** for contingency tables. A **mosaic plot** is a graphical representation of two way contingency table which pictographically represents the relationship among two or more categorical variables. The area of the tiles, also known as the bin size, is proportional to the number of observations within that category
+
+```{r ggmosaic}
+library(ggmosaic)
+```
+
+
+```{r mosaic_plot}
+library(ggmosaic)
+library(ggsci)
+mosaic_plot1 <- ggplot(data = subjectProfiles) +
+  geom_mosaic(aes(x = product(Sensitivity, ReadingProfile), fill = Sensitivity), colour = "black") +   
+  labs(y="Sensitivity", x="Reading Profile", title = "Sensitivity as a function of Reading Profile") + theme_classic() +  scale_fill_npg()
+  # scale_color_manual(values = c("darkslategray4", "pink3"))+
+  # scale_fill_manual(values = c("darkslategray4", "pink3"))
+mosaic_plot1
+```
+Now we can do a chi-square test to see if the proportions are significantly different. We begin by creating a frequency table
+
+```{r}
+(responses_table <- table(subjectProfiles$Sensitivity, subjectProfiles$ReadingProfile))
+```
+The  chi-square approximation to the distribution of the test statistic relies on the counts being roughly normally distributed. If many of the expected counts are very small, the approximation may be poor. You can deal with the problem by setting the `simulate.p.value` argument to `TRUE`; If `simulate.p.value` is `FALSE`, the **p**-value is computed from the asymptotic chi-squared distribution of the test statistic; Otherwise the p-value is computed for a Monte Carlo test (Hope, 1968) with B replicates. In this case, you aren't reliant on the chi-square approximation to the distribution of the test statistic. 
+
+```{r chiSquare}
+(chisqr <- chisq.test(responses_table, simulate.p.value = TRUE, B = 100000))
+```
+
+The result of chisq.test() function is a list containing the following components:
+
+*statistic*: the value the chi-squared test statistic.
+*parameter*: the degrees of freedom
+*p.value*: the p-value of the test
+*observed*: the observed count
+*expected*: the expected count
+
+```{r chisquare_object_values}
+chisqr$statistic
+chisqr$parameter
+chisqr$p.value
+chisqr$observed
+chisqr$expected
+```
+
+
+For such small counts, you could use Fisher's exact test. 
+
+
+From Wikipedia "With large samples, a chi-squared test can be used in this situation. However, the significance value it provides is only an approximation, because the sampling distribution of the test statistic that is calculated is only approximately equal to the theoretical chi-squared distribution. The approximation is inadequate when sample sizes are small, or the data are very unequally distributed among the cells of the table, resulting in the cell counts predicted on the null hypothesis (the "expected values") being low. The usual rule of thumb for deciding whether the chi-squared approximation is good enough is that the chi-squared test is not suitable when the expected values in any of the cells of a contingency table are below 5, or below 10 when there is only one degree of freedom"
+
+```{r Fisher}
+fisher.test(responses_table)
+```
+
+
+
+
+
+
